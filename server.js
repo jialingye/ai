@@ -9,7 +9,10 @@ const { PORT = 4000 } = process.env;
 const express = require("express");
 // create application object
 const app = express();
-const peopleRouter = require("./controllers/project")
+const projectRouter = require("./controllers/project");
+const taskRouter = require("./controllers/task");
+const userRouter = require("./controllers/user");
+
 
 // import middleware
 const cors = require("cors"); 
@@ -23,15 +26,19 @@ app.use(morgan("dev")); // logging
 app.use(express.json()); // parse json bodies
 
 app.use("/project", projectRouter)
-app.use("/task", taskRouter)
-app.use("/user", userRouter)
+
+
+
 ///////////////////////////////
 // ROUTES
 ////////////////////////////////
+
 // create a test route
 app.get("/", (req, res) => {
   res.send("hello world");
 });
+
+
 
 ///////////////////////////////
 // LISTENER

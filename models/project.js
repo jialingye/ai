@@ -7,7 +7,7 @@ const mongoose = require("./connection");
 const projectSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true
+    default:''
   },
   description: {
     type: String,
@@ -16,13 +16,6 @@ const projectSchema = new mongoose.Schema({
   tags: [{
     type: String
   }],
-  startDate: {
-    type: Date,
-    default: Date.now
-  },
-  endDate: {
-    type: Date
-  },
   status: {
     type: String,
     default: "ongoing"
