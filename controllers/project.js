@@ -4,7 +4,7 @@
 const express = require("express");
 const Project = require("../models/project");
 require("dotenv").config();
-const {OPENAI_API_KEY} = process.env;
+
 
 ///////////////OPEN_AI/////////////////////////////////
 const { Configuration, OpenAIApi } = require("openai");
@@ -44,29 +44,12 @@ router.get("/:id", async (req, res) => {
     console.log("this is finally");
   }
 });
-//chatGPT API
-async function chatgptAPI(userInput) {
-  try {
-    // Make the completion request using the openai.createCompletion method
-    const response = await openai.createCompletion({
-      model: "text-davinci-003",
-      prompt: userInput + "please plan the project into different steps and list them in order",
-      max_tokens: 100,
-      temperature: 0.7,
-    });
 
-    // Extract and return the response data
-    return response.data;
-  } catch (error) {
-    console.error('ChatGPT API request error:', error);
-    throw error;
-  }
-}
 
   // project CREATE ROUTE
   router.post("/", async (req, res) => {
-    const {title, description, tags, instruction} = req.body;
-    console.log(title, description, tags, instruction)
+    const {title, description, tags} = req.body;
+    //console.log(title, description, tags)
     try {
       // send all project
       const projectObj = await Project.create({
@@ -76,8 +59,8 @@ async function chatgptAPI(userInput) {
         status: 'ongoing'
       })
 
-      const aiResponse = await chatgptAPI(instruction)
-      res.json({project:projectObj, aiResponse});
+      
+      res.json({project:projectObj});
       //res.json({project:projectObj});
     } catch (error) {
       //send error
