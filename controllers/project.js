@@ -3,6 +3,7 @@
 ////////////////////////////////////////
 const express = require("express");
 const Project = require("../models/project");
+const Task = require("../models/task");
 require("dotenv").config();
 
 
@@ -52,18 +53,18 @@ router.get("/:id", async (req, res) => {
     //console.log(title, description, tags)
     try {
       // send all project
-      const projectObj = await Project.create({
+      const project = await Project.create({
         tags,
         title,
         description,
         status: 'ongoing'
       })
 
-      
-      res.json({project:projectObj});
+      res.json({project});
       //res.json({project:projectObj});
     } catch (error) {
       //send error
+      console.log(error)
       res.status(400).json(error);
     }
   });

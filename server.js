@@ -55,9 +55,10 @@ app.post("/ai", async (req, res) => {
       max_tokens: 100,
       temperature: 0.7,
     });
-
+    const answer = response.data.choices[0].text
+    console.log(response.data)
     // Extract and return the response data
-    res.json(response.data);
+    res.json(answer);
   } catch (error) {
     console.error('ChatGPT API request error:', error);
     res.status(500).json({ error: 'An error occurred during the API request' });
